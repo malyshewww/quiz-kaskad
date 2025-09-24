@@ -1,0 +1,26 @@
+:root {
+  // Color vars
+  --text-heading: #353840;
+  --text-default-accent: #d72824;
+  --text-default-primary: #47454b;
+  --text-default-primary-contrast: #47454b;
+  --text-default-secondary: #9396a4;
+  --text-default-additional: #c3c3c3;
+  --bg-secondary: #f5f5f5;
+  --bg-accent: #d72824;
+  --bg-primary: #fff;
+  --action-primary-default: #d72824;
+  --action-primary-hover: #b90a06;
+  --action-primary-unavailble: #9b9b9b;
+  --action-secondary-default: #d72824;
+  --action-secondary-hover: #d72824;
+  --action-secondary-unavailble: #9b9b9b;
+  --action-tertiary-default: #c3c3c3;
+  --action-tertiary-hover: #47454b;
+  --stroke-accent: #d72824;
+  --stroke-primary: #d7d7d7;
+  --text-primary: var(--text-heading);
+  --font-family: "Montserrat", sans-serif;
+  --default-weight: 400;
+  --font-size: 16px;
+}

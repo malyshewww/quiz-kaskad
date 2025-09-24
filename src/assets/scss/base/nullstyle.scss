@@ -1,0 +1,118 @@
+@use "./global" as *;
+@use "./mixins" as m;
+
+* {
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,
+:active {
+  outline: none;
+}
+html,
+body {
+  height: 100%;
+  min-width: $minWidth + px;
+}
+body {
+  font-family: var(--font-family);
+  font-weight: var(--default-weight);
+  color: var(--text-primary);
+  font-size: var(--font-size);
+  background-color: var(--bg-primary);
+  font-style: normal;
+  line-height: 1;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
+  min-height: 100%;
+  touch-action: pan-x pan-y;
+}
+aside,
+nav,
+footer,
+header,
+section,
+main {
+  display: block;
+}
+button {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -moz-tap-highlight-color: rgba(0, 0, 0, 0);
+  -o-tap-highlight-color: rgba(0, 0, 0, 0);
+  -ms-tap-highlight-color: rgba(0, 0, 0, 0);
+  -tap-highlight-color: rgba(0, 0, 0, 0);
+  &:focus,
+  &:active {
+    outline: 0px solid transparent;
+  }
+  &::-moz-focus-inner {
+    padding: 0;
+    border: 0;
+  }
+}
+input:focus {
+  outline: 0px solid transparent;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input::-ms-clear {
+  display: none;
+}
+button,
+input,
+textarea {
+  font-family: var(--font-family);
+  font-size: inherit;
+}
+button {
+  color: inherit;
+  background-color: inherit;
+}
+button,
+input[type="submit"] {
+  @include m.hover {
+    cursor: pointer;
+  }
+}
+a {
+  color: inherit;
+  cursor: default;
+  @include m.hover {
+    cursor: pointer;
+  }
+}
+a:link,
+a:visited {
+  text-decoration: none;
+}
+address {
+  font-style: normal;
+}
+img {
+  border: none;
+  max-height: 100%;
+  vertical-align: top;
+  object-fit: cover;
+}
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
+}
