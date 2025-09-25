@@ -1,0 +1,21 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text-heading);
+  font-weight: 400;
+}
+
+h1 {
+  font-size: clamp(2.25rem, 1.537rem + 3.042vw, 5.188rem);
+  line-height: clamp(2.688rem, 1.823rem + 3.689vw, 6.25rem);
+  text-transform: uppercase;
+}
+
+h2 {
+  font-weight: 500;
+  font-size: 40px;
+  line-height: 40px;
+}

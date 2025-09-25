@@ -2,8 +2,12 @@
 @use "./mixins" as m;
 @use "./global" as *;
 
+#app {
+  height: 100%;
+}
+
 .container {
   max-width: $maxWidthContainer + px;
   margin: 0 auto;
-  padding: 0 70px;
+  padding: 0 math.div($containerPadding, 2) + px;
 }

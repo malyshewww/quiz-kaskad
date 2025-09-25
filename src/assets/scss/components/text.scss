@@ -1,0 +1,67 @@
+@use "../base/mixins" as m;
+@use "../base/global" as *;
+
+.default-text {
+  letter-spacing: var(--letter-spacing);
+  &--l {
+    font-size: 18px;
+    line-height: 22px;
+    @include m.media($md) {
+      font-size: 16px;
+      line-height: 19px;
+    }
+  }
+  &--l-medium {
+    font-weight: 500;
+    line-height: 19px;
+  }
+  &--m {
+    line-height: 19px;
+    @include m.media($md) {
+      font-size: 14px;
+      line-height: 17px;
+    }
+  }
+  &--m-medium {
+    font-weight: 500;
+  }
+  &--s {
+    font-size: 14px;
+    line-height: 17px;
+    @include m.media($md) {
+      font-size: 12px;
+      line-height: 14px;
+    }
+  }
+  &--s-medium {
+    font-weight: 500;
+  }
+  &--xs {
+    font-size: 12px;
+    line-height: 14px;
+    @include m.media($md) {
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+  &--medium {
+    font-weight: 500;
+  }
+}
+
+.accent-text {
+  line-height: 19px;
+  @include m.media($md) {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}
+
+.btn-default {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 1;
+  @include m.media($md) {
+    font-size: 14px;
+  }
+}
