@@ -1,4 +1,6 @@
 <script setup>
+const emit = defineEmits(["update:modelValue"]);
+
 const attrs = useAttrs();
 defineOptions({
   inheritAttrs: false,
@@ -7,7 +9,7 @@ defineOptions({
 
 <template>
   <div class="radio">
-    <input type="radio" v-bind="$attrs" class="radio__input" />
+    <input type="radio" v-bind="$attrs" class="radio__input" @change="emit('update:modelValue', $event.target.value)" />
     <label :for="attrs.id" class="radio__label default-text default-text--s default-text--s-medium">
       <slot />
     </label>
@@ -40,6 +42,7 @@ defineOptions({
     transition: border-color var(--time), background-color var(--time), color var(--time);
     @include hover {
       cursor: pointer;
+      border-color: var(--text-default-accent);
     }
   }
 }

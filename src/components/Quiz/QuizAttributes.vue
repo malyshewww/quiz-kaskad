@@ -1,5 +1,10 @@
 <script setup>
 import InputCheckbox from "@/components/ui/form/InputCheckbox.vue";
+import QuestionBlock from "@/components/Quiz/QuestionBlock.vue";
+
+import { useQuizStore } from "@/store/quiz";
+
+const quizStore = useQuizStore();
 
 const quizAttributesData = [
   {
@@ -37,22 +42,39 @@ const quizAttributesData = [
     title: "Наличие лоджии/балкона",
   },
 ];
+
+// Обработка чекбоксов атрибутов жилья
+const handlePayment = (value) => {
+  const index = quizStore.selectedAttributes.indexOf(value);
+  if (index === -1) {
+    quizStore.selectedAttributes.push(value);
+  } else {
+    quizStore.selectedAttributes.splice(index, 1);
+  }
+};
 </script>
 
 <template>
-  <div class="quiz-attributes">
-    <InputCheckbox
-      v-for="(item, index) in quizAttributesData"
-      :key="index"
-      :id="`comfort-${index + 1}`"
-      name="comfort"
-      :value="item.title"
-      :is-descr="item.descr"
-    >
-      <template #single>{{ item.title }}</template>
-      <template v-if="item.descr" #descr>{{ item.descr }}</template>
-    </InputCheckbox>
-  </div>
+  <QuestionBlock>
+    <template #title>Какие атрибуты комфорта важны для Вас?</template>
+    <template #text>Возможно выбрать один или несколько вариантов ответов.</template>
+    <template #actions>
+      <div class="quiz-attributes">
+        <InputCheckbox
+          v-for="(item, index) in quizAttributesData"
+          :key="index"
+          :id="`comfort-${index + 1}`"
+          name="comfort"
+          :value="item.title"
+          :is-descr="item.descr ? true : false"
+          @update:model-value="handlePayment(item.title)"
+        >
+          <template #single>{{ item.title }}</template>
+          <template v-if="item.descr" #descr>{{ item.descr }}</template>
+        </InputCheckbox>
+      </div>
+    </template>
+  </QuestionBlock>
 </template>
 
 <style lang="scss" scoped>
@@ -62,5 +84,9 @@ const quizAttributesData = [
   gap: 20px;
   max-width: 1180px;
   margin: 0 auto;
+  @include media($md) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
 }
 </style>

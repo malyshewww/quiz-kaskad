@@ -1,12 +1,33 @@
 <script setup>
 import Button from "../ui/buttons/Button.vue";
 import ButtonBack from "../ui/buttons/ButtonBack.vue";
+
+import { useQuizStore } from "@/store/quiz";
+
+const quizStore = useQuizStore();
+
+const emit = defineEmits(["prev-step", "next-step"]);
+
+const prevStep = () => {
+  emit("prev-step");
+};
+
+const nextStep = () => {
+  emit("next-step");
+};
+
+const openQuizResult = () => {
+  quizStore.isOpenQuizResult = true;
+};
 </script>
 
 <template>
   <div class="quiz-actions">
-    <ButtonBack>Вернуться назад </ButtonBack>
-    <Button type="button" type-class="secondary">Следующий вопрос</Button>
+    <ButtonBack :disabled="quizStore.currentStep === 1" @click="prevStep">Вернуться назад</ButtonBack>
+    <Button v-if="quizStore.currentStep < 5" type="button" type-class="secondary" :disabled="quizStore.selectedRooms.length === 0" @click="nextStep"
+      >Следующий вопрос</Button
+    >
+    <Button v-if="quizStore.currentStep === 5" type="button" type-class="primary" @click="openQuizResult">Завершить опрос</Button>
   </div>
 </template>
 
@@ -17,5 +38,14 @@ import ButtonBack from "../ui/buttons/ButtonBack.vue";
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
+  margin-top: auto;
+  @include media($lg) {
+    position: sticky;
+    bottom: 0;
+    z-index: 5;
+    padding: 24px 0px;
+    background-color: var(--white);
+    flex-direction: column-reverse;
+  }
 }
 </style>

@@ -1,5 +1,9 @@
 <script setup>
 import InputRadio from "@/components/ui/form/InputRadio.vue";
+import QuestionBlock from "@/components/Quiz/QuestionBlock";
+import { useQuizStore } from "@/store/quiz";
+
+const quizStore = useQuizStore();
 
 const quizRoomsData = [
   {
@@ -35,27 +39,44 @@ const openRoom = (index) => {
     activeCard.value = index;
   }
 };
+
+// Обработка радиокнопок площадей в комнатах
+const handleRooms = (value) => {
+  quizStore.selectedRooms = value;
+};
 </script>
 
 <template>
-  <div class="quiz-rooms">
-    <div
-      v-for="(room, roomIndex) in quizRoomsData"
-      :key="roomIndex"
-      :class="['quiz-rooms__item', { 'is-active': activeCard === roomIndex }]"
-      @click="openRoom(roomIndex)"
-    >
-      <div class="quiz-rooms__title default-text--m default-text--m-medium">{{ room.title }}</div>
-      <div class="quiz-rooms__content">
-        <div class="quiz-rooms__content-caption default-text default-text--xs">Выберите площадь</div>
-        <div class="quiz-rooms__areas">
-          <InputRadio v-for="(item, areaIndex) in room.areas" :key="areaIndex" :id="`${room.key}-${areaIndex + 1}`" :name="room.key" :value="item">{{
-            item
-          }}</InputRadio>
+  <QuestionBlock>
+    <template #title>Сколько комнат в квартире для вас актуально?</template>
+    <template #text>Возможно выбрать один вариант ответа.</template>
+    <template #actions>
+      <div class="quiz-rooms">
+        <div
+          v-for="(room, roomIndex) in quizRoomsData"
+          :key="roomIndex"
+          :class="['quiz-rooms__item', { 'is-active': activeCard === roomIndex }]"
+          @click="openRoom(roomIndex)"
+        >
+          <div class="quiz-rooms__title default-text--m default-text--m-medium">{{ room.title }}</div>
+          <div class="quiz-rooms__content" @click.stop>
+            <div class="quiz-rooms__content-caption default-text default-text--xs">Выберите площадь</div>
+            <div class="quiz-rooms__areas">
+              <InputRadio
+                v-for="(item, areaIndex) in room.areas"
+                :key="areaIndex"
+                :id="`${room.key}-${areaIndex + 1}`"
+                name="rooms"
+                :value="item"
+                @update:model-value="handleRooms(item)"
+                >{{ item }}</InputRadio
+              >
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </QuestionBlock>
 </template>
 
 <style lang="scss" scoped>
@@ -64,16 +85,25 @@ const openRoom = (index) => {
   gap: 20px;
   max-width: 587px;
   margin: 0 auto;
+  @include media($md) {
+    gap: 12px;
+  }
   // .quiz-rooms__item
   &__item {
     border-radius: 12px;
     padding: 24px;
     min-height: 67px;
     background-color: var(--bg-secondary);
+    border: 1px solid transparent;
+    @include media($md) {
+      min-height: 57px;
+      padding: 20px;
+    }
     @include hover {
       cursor: pointer;
     }
     &.is-active {
+      border-color: var(--text-default-accent);
       @include hover {
         cursor: default;
       }
@@ -81,11 +111,15 @@ const openRoom = (index) => {
         animation: fadeIn calc(var(--time) * 1.5) both;
         display: block;
       }
+      & .quiz-rooms__title {
+        color: var(--text-default-accent);
+      }
     }
   }
   // .quiz-rooms__title
   &__title {
     color: var(--text-default-primary);
+    transition: color var(--time);
   }
   // .quiz-rooms__content
   &__content {

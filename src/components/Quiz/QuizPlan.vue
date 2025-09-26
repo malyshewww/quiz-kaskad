@@ -2,6 +2,12 @@
 import QuizPlanImageOne from "/images/quiz/quiz-plan-1@2x.png";
 import QuizPlanImageTwo from "/images/quiz/quiz-plan-2@2x.png";
 
+import QuestionBlock from "@/components/Quiz/QuestionBlock";
+
+import { useQuizStore } from "@/store/quiz";
+
+const quizStore = useQuizStore();
+
 const quizPlanData = [
   {
     image: QuizPlanImageOne,
@@ -17,18 +23,24 @@ const quizPlanData = [
 </script>
 
 <template>
-  <div class="quiz-plan">
-    <div v-for="(item, index) in quizPlanData" :key="index" class="quiz-plan__item">
-      <input type="radio" name="plan" class="quiz-plan__input" :value="item.title" />
-      <div class="quiz-plan__image image-ibg">
-        <img :src="item.image" :alt="item.title" />
+  <QuestionBlock>
+    <template #title>Какой тип отделки Вы предпочтете?</template>
+    <template #text>Возможно выбрать один вариант ответа.</template>
+    <template #actions>
+      <div class="quiz-plan">
+        <div v-for="(item, index) in quizPlanData" :key="index" class="quiz-plan__item">
+          <input type="radio" name="plan" class="quiz-plan__input" :value="item.title" v-model="quizStore.selectedPlan" />
+          <div class="quiz-plan__image image-ibg">
+            <img :src="item.image" :alt="item.title" />
+          </div>
+          <div class="quiz-plan__content">
+            <p class="quiz-plan__caption default-text default-text--m default-text--medium">{{ item.title }}</p>
+            <p class="default-text default-text--s">{{ item.subTitle }}</p>
+          </div>
+        </div>
       </div>
-      <div class="quiz-plan__content">
-        <p class="quiz-plan__caption default-text default-text--m default-text--m-medium">{{ item.title }}</p>
-        <p class="default-text default-text--s">{{ item.subTitle }}</p>
-      </div>
-    </div>
-  </div>
+    </template>
+  </QuestionBlock>
 </template>
 
 <style lang="scss" scoped>
@@ -38,6 +50,10 @@ const quizPlanData = [
   gap: 20px;
   max-width: 1180px;
   margin: 0 auto;
+  @include media($md) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
   // .quiz-plan__item
   &__item {
     min-height: 399px;
@@ -59,6 +75,10 @@ const quizPlanData = [
     @include hover {
       cursor: pointer;
       border-color: var(--text-default-accent);
+    }
+    @include media($md) {
+      min-height: 180px;
+      padding: 20px;
     }
   }
   // .quiz-plan__input
@@ -86,9 +106,15 @@ const quizPlanData = [
   }
   // .quiz-plan__image
   &__image {
-    width: 372px;
+    width: 100%;
     height: 264px;
     margin: 0 auto;
+    & :deep(img) {
+      object-fit: contain;
+    }
+    @include media($md) {
+      height: 100%;
+    }
   }
   // .quiz-plan__content
   &__content {

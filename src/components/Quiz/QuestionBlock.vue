@@ -12,17 +12,25 @@
 
 <style lang="scss" scoped>
 .question-block {
-  margin-bottom: 60px;
+  margin-bottom: 2%;
   // .question-block__header
   &__header {
     display: flex;
     flex-direction: column;
     gap: 20px;
     text-align: center;
-    margin-bottom: 60px;
+    margin-bottom: 6.122vh;
+    @include media($md) {
+      margin-bottom: 32px;
+      gap: 12px;
+    }
   }
   // .question-block__title
   &__title {
+    @include media($md) {
+      font-size: 24px;
+      line-height: 24px;
+    }
   }
   // .question-block__sub-title
   &__sub-title {

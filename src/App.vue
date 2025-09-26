@@ -11,18 +11,42 @@ const pageClass = computed(() => {
 <template>
   <div :class="['page', pageClass]">
     <AppHeader />
-    <router-view />
-    <!-- <router-link to="/"> App </router-link>
-    <router-link to="/quiz"> Quiz </router-link> -->
+    <router-view v-slot="{ Component }">
+      <component :is="Component" />
+    </router-view>
   </div>
 </template>
 
 <style lang="scss" scoped>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .page {
-  padding: calc(var(--header-height) + 20px) 0 110px;
+  padding: calc(var(--header-height) + 20px) 0 11.224vh;
+  height: 100%;
+  @include media($lg) {
+    padding-bottom: 28px;
+  }
+  @include media($md) {
+    padding: calc(var(--header-height) + 7px) 0 0px;
+  }
   &--home {
+    height: 100vh;
     padding: 0;
-    height: 100%;
+    @include media($lg) {
+      padding-bottom: 0;
+    }
+    @include media($md) {
+      padding: 0;
+      min-height: 100%;
+    }
   }
 }
 </style>

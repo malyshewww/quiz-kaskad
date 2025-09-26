@@ -25,7 +25,10 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100vh;
+  background-color: var(--white);
+  @include media($lg) {
+  }
   // .quiz-result__image
   &__image {
     position: absolute;
@@ -41,11 +44,14 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
       width: 100%;
       height: 100%;
     }
+    @include media($lg) {
+      display: none;
+    }
   }
   // .quiz-result__content
   &__content {
     width: 50%;
-    background-color: var(--bg-primary);
+    background-color: var(--white);
     height: 100%;
     padding: 60px 70px;
     padding-right: 8%;
@@ -53,9 +59,27 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
     flex-direction: column;
     gap: 80px;
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+    @include media($xl) {
+      width: 60%;
+      padding: 24px;
+      padding-right: 80px;
+      clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+      gap: 40px;
+    }
+    @include media($lg) {
+      width: 100%;
+      clip-path: none;
+      padding: 20px 16px;
+      overflow-y: auto;
+      @include no-scroll;
+    }
   }
   // .quiz-result__logo
   &__logo {
+    @include media($xl) {
+      width: 200px;
+      height: auto;
+    }
   }
 }
 </style>

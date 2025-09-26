@@ -1,6 +1,13 @@
 <script setup>
+import { Fancybox } from "@fancyapps/ui";
+import "@fancyapps/ui/dist/fancybox/fancybox.css";
+
 import InputBase from "@/components/ui/form/InputBase";
 import Button from "@/components/ui/buttons/Button.vue";
+
+onMounted(() => {
+  Fancybox.bind('[data-fancybox="doc-fancybox"]', { Hash: false });
+});
 </script>
 
 <template>
@@ -22,7 +29,7 @@ import Button from "@/components/ui/buttons/Button.vue";
       <Button type="submit">Отправить</Button>
       <div class="form__text default-text default-text--s default-text--medium">
         Отправляя форму, Вы соглашаетесь на
-        <router-link to="/policy">обработку персональных данных.</router-link>
+        <a href="/kaskad.docx" download="kaskad" target="_blank">обработку персональных данных.</a>
       </div>
     </div>
   </form>
@@ -34,6 +41,9 @@ import Button from "@/components/ui/buttons/Button.vue";
   display: flex;
   flex-direction: column;
   max-width: 580px;
+  @include media($lg) {
+    max-width: 100%;
+  }
   // .form__header
   &__header {
     display: flex;
@@ -41,6 +51,10 @@ import Button from "@/components/ui/buttons/Button.vue";
     gap: 12px;
     & h2 {
       font-weight: 500;
+      @include media($lg) {
+        font-size: 24px;
+        line-height: 24px;
+      }
     }
     & p {
       line-height: 19px;
@@ -56,18 +70,29 @@ import Button from "@/components/ui/buttons/Button.vue";
     & p {
       color: var(--text-default-additional);
     }
+    @include media($md) {
+      margin: 20px 0px;
+    }
   }
   // .form__bottom
   &__bottom {
     margin-top: auto;
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 12px 24px;
+    @include media($md) {
+      flex-direction: column;
+      text-align: center;
+      align-items: stretch;
+    }
   }
   // .form__text
   &__text {
     color: var(--text-default-secondary);
     max-width: 384px;
+    @include media($md) {
+      max-width: 100%;
+    }
     & a {
       text-decoration: underline;
       text-underline-offset: 4px;

@@ -16,16 +16,16 @@ export default defineConfig({
       // Default configuration options for compressing different pictures
       compress: {
         jpg: {
-          quality: 100,
+          quality: 80,
         },
         jpeg: {
-          quality: 100,
+          quality: 80,
         },
         png: {
-          quality: 100,
+          quality: 80,
         },
         webp: {
-          quality: 100,
+          quality: 80,
         },
       },
       conversion: [

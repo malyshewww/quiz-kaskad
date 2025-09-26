@@ -3,6 +3,12 @@ import QuizTypeImageOne from "/images/quiz/quiz-type-1@2x.jpg";
 import QuizTypeImageTwo from "/images/quiz/quiz-type-2@2x.jpg";
 import QuizTypeImageThree from "/images/quiz/quiz-type-3@2x.jpg";
 
+import QuestionBlock from "@/components/Quiz/QuestionBlock";
+
+import { useQuizStore } from "@/store/quiz";
+
+const quizStore = useQuizStore();
+
 const quizTypeData = [
   {
     image: QuizTypeImageOne,
@@ -23,18 +29,24 @@ const quizTypeData = [
 </script>
 
 <template>
-  <div class="quiz-type">
-    <div v-for="(item, index) in quizTypeData" :key="index" class="quiz-type__item">
-      <input type="radio" name="type" class="quiz-type__input" />
-      <div class="quiz-type__image image-ibg">
-        <img :src="item.image" :alt="item.title" />
+  <QuestionBlock>
+    <template #title>Какой тип отделки Вы предпочтете?</template>
+    <template #text>Возможно выбрать один вариант ответа.</template>
+    <template #actions>
+      <div class="quiz-type">
+        <div v-for="(item, index) in quizTypeData" :key="index" class="quiz-type__item">
+          <input type="radio" name="type" class="quiz-type__input" :value="item.title" v-model="quizStore.selectedType" />
+          <div class="quiz-type__image image-ibg">
+            <img :src="item.image" :alt="item.title" />
+          </div>
+          <div class="quiz-type__content">
+            <p class="quiz-type__caption default-text default-text--m default-text--m-medium">{{ item.title }}</p>
+            <p class="quiz-type__text default-text default-text--s">{{ item.subTitle }}</p>
+          </div>
+        </div>
       </div>
-      <div class="quiz-type__content">
-        <p class="quiz-type__caption default-text default-text--m default-text--m-medium">{{ item.title }}</p>
-        <p class="quiz-type__text default-text default-text--s">{{ item.subTitle }}</p>
-      </div>
-    </div>
-  </div>
+    </template>
+  </QuestionBlock>
 </template>
 
 <style lang="scss" scoped>
@@ -42,6 +54,10 @@ const quizTypeData = [
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  @include media($md) {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
   // .quiz-type__item
   &__item {
     display: flex;

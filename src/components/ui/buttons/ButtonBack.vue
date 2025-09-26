@@ -1,9 +1,9 @@
 <script setup></script>
 
 <template>
-  <div class="btn-default btn-back">
+  <button type="button" class="btn-default btn-back" v-bind="$attrs">
     <slot />
-  </div>
+  </button>
 </template>
 
 <style lang="scss" scoped>
@@ -15,6 +15,12 @@
   @include hover {
     cursor: pointer;
     color: var(--text-default-primary);
+  }
+  &:disabled,
+  &.disabled {
+    cursor: default;
+    color: var(--action-primary-unavailble);
+    pointer-events: none;
   }
 }
 </style>

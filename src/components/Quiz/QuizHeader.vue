@@ -1,11 +1,19 @@
-<script setup></script>
+<script setup>
+import { useQuizStore } from "@/store/quiz";
+const quizStore = useQuizStore();
+
+// Вычисляемый процент прогресса
+const progressPercentage = computed(() => {
+  return (quizStore.currentStep / quizStore.quizComponentsLength) * 100;
+});
+</script>
 
 <template>
   <div class="quiz-header">
     <div class="quiz-header__progress">
-      <div class="quiz-header__progress-bar"></div>
+      <div class="quiz-header__progress-bar" :style="{ width: progressPercentage + '%' }"></div>
     </div>
-    <div class="quiz-header__count default-text default-text--m">Вопрос 1 из 5</div>
+    <div class="quiz-header__count default-text default-text--m">Вопрос {{ quizStore.currentStep }} из {{ quizStore.quizComponentsLength }}</div>
   </div>
 </template>
 
@@ -14,7 +22,10 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-bottom: 60px;
+  margin-bottom: 6.122vh;
+  @include media($md) {
+    margin-bottom: 40px;
+  }
   // .quiz-header__progress
   &__progress {
     border-radius: 29px;
@@ -28,13 +39,10 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 30%;
     border-radius: 18px;
     height: 100%;
     background: var(--text-default-accent);
-  }
-  // .quiz-header__count
-  &__count {
+    transition: width var(--time);
   }
 }
 </style>

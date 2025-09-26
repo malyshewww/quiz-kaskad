@@ -7,6 +7,8 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["update:modelValue"]);
+
 defineOptions({
   inheritAttrs: false,
 });
@@ -16,10 +18,10 @@ const attrs = useAttrs();
 
 <template>
   <div class="checkbox">
-    <input type="checkbox" v-bind="$attrs" class="checkbox__input" />
+    <input type="checkbox" v-bind="$attrs" class="checkbox__input" @change="emit('update:modelValue', $event.target.value)" />
     <label :for="attrs.id" class="checkbox__label">
       <span class="checkbox__text">
-        <span class="checkbox__text--main default-text default-text--l">
+        <span class="checkbox__text--main default-text default-text--l default-text--medium">
           <slot name="single" />
         </span>
         <span v-if="isDescr" class="checkbox__text--descr default-text default-text--s">
@@ -33,6 +35,7 @@ const attrs = useAttrs();
 <style lang="scss" scoped>
 @use "@/assets/scss/base/extends" as *;
 .checkbox {
+  height: 100%;
   // .checkbox__label
   &__label {
     border-radius: 8px;
@@ -45,9 +48,14 @@ const attrs = useAttrs();
     text-align: left;
     border: 1px solid transparent;
     transition: border-color var(--time);
+    height: 100%;
     @include hover {
       cursor: pointer;
       border-color: var(--text-default-accent);
+    }
+    @include media($md) {
+      min-height: 57px;
+      padding: 10px 20px;
     }
   }
   // .checkbox__input
