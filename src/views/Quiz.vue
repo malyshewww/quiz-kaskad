@@ -71,14 +71,37 @@ const updateAttributes = (attribute) => {
   quiz.attributes.value = Array.isArray(attribute) ? [...attribute] : attribute;
 };
 
+const checkStep = () => {
+  const stepValidations = {
+    1: () => quizStore.selectedRooms.length > 0,
+    2: () => quizStore.selectedPlan.length > 0,
+    3: () => quizStore.selectedType.length > 0,
+    4: () => quizStore.selectedPayment.length > 0,
+    5: () => quizStore.selectedAttributes.length > 0,
+  };
+
+  const isValid = stepValidations[quizStore.currentStep]?.() || false;
+  quizStore.isDisabledStepButton = !isValid;
+  // console.log(`step ${quizStore.currentStep}`, isValid);
+  return isValid;
+};
+
 watchEffect(() => {
   updateRooms(quizStore.selectedRooms);
   updatePlan(quizStore.selectedPlan);
   updateType(quizStore.selectedType);
   updatePayment(quizStore.selectedPayment);
   updateAttributes(quizStore.selectedAttributes);
-  console.log("watch", quiz);
+  // console.log("watch", quiz);
+  checkStep();
 });
+
+watch(
+  () => quizStore.currentStep,
+  () => {
+    checkStep();
+  }
+);
 
 const { lockScroll } = useScrollLock();
 
