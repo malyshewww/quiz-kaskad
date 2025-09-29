@@ -18,7 +18,7 @@ const headerClass = computed(() => {
       <router-link to="/" class="header__logo">
         <img :src="currentLogo" alt="логотип" />
       </router-link>
-      <a href="tel:+78312664871" class="header__phone default-text default-text--l default-text--l-medium">+7 (831) 266-48-71 </a>
+      <a href="tel:+78312664871" class="header__phone default-text default-text--l default-text--l-medium">+7 (831) 266-48-71</a>
     </div>
   </header>
 </template>

@@ -1,7 +1,4 @@
 <script setup>
-import { Fancybox } from "@fancyapps/ui";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
-
 import InputBase from "@/components/ui/form/InputBase";
 import Button from "@/components/ui/buttons/Button.vue";
 import QuizFormInfo from "@/components/Quiz/QuizFormInfo.vue";
@@ -74,8 +71,6 @@ async function onSuccess(values, { resetForm }) {
 }
 
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
-
-onMounted(() => {});
 </script>
 
 <template>

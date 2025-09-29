@@ -24,10 +24,20 @@ const openQuizResult = () => {
 <template>
   <div class="quiz-actions">
     <ButtonBack :disabled="quizStore.currentStep === 1" @click="prevStep">Вернуться назад</ButtonBack>
-    <Button v-if="quizStore.currentStep < 5" type="button" type-class="secondary" :disabled="quizStore.isDisabledStepButton" @click="nextStep"
+    <Button
+      v-if="quizStore.currentStep < quizStore.quizComponentsLength"
+      type="button"
+      type-class="secondary"
+      :disabled="quizStore.isDisabledStepButton"
+      @click="nextStep"
       >Следующий вопрос</Button
     >
-    <Button v-if="quizStore.currentStep === 5" type="button" type-class="primary" :disabled="quizStore.isDisabledStepButton" @click="openQuizResult"
+    <Button
+      v-if="quizStore.currentStep === quizStore.quizComponentsLength"
+      type="button"
+      type-class="primary"
+      :disabled="quizStore.isDisabledStepButton"
+      @click="openQuizResult"
       >Завершить опрос</Button
     >
   </div>

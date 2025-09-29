@@ -3,6 +3,7 @@ import "@/assets/scss/main.scss";
 import AppHeader from "@/components/AppHeader";
 
 const route = useRoute();
+
 const pageClass = computed(() => {
   return route.name === "home" ? "page--home" : "";
 });

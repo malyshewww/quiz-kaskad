@@ -26,13 +26,15 @@
   --text-gray: #858585;
   --text-red: #e63b2e;
   --white: var(--bg-primary);
+  // Fonts
   --font-family: "Montserrat", sans-serif;
   --default-weight: 400;
   --font-size: 16px;
   --letter-spacing: -0.2px;
-  --time: 0.35s;
+  // Header
   --header-height: 74px;
   --header-home-height: 98px;
+  --time: 0.35s;
 }
 
 @media screen and (max-width: $md) {
