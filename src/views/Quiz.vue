@@ -140,7 +140,7 @@ useHead({
     </div>
     <QuizActions @prev-step="prevStep" @next-step="nextStep" @open-popup="openPopup" />
     <transition name="fade" mode="out-in">
-      <QuizResult />
+      <QuizResult v-if="quizStore.isOpenQuizResult" />
     </transition>
   </div>
 </template>
