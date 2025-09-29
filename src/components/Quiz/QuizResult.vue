@@ -10,9 +10,9 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
       <img :src="QuizResultBg" alt="фоновое изображение" />
     </div>
     <div class="quiz-result__content">
-      <div class="quiz-result__logo">
+      <a href="https://www.kaskad-nn.ru/ " target="_blank" class="quiz-result__logo">
         <img :src="QuizResultLogo" alt="каскад" />
-      </div>
+      </a>
       <QuizDefaultForm />
     </div>
   </div>
@@ -76,6 +76,7 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
   }
   // .quiz-result__logo
   &__logo {
+    display: block;
     @include media($xl) {
       width: 200px;
       height: auto;
