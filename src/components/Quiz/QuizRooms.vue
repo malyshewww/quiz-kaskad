@@ -68,10 +68,10 @@ const handleRooms = (value) => {
               <InputRadio
                 v-for="(item, areaIndex) in room.areas"
                 :key="areaIndex"
-                :id="`${room.key}-${areaIndex + 1}-${quizStore.selectedRooms}`"
+                :id="`${room.key}-${areaIndex + 1}`"
                 name="rooms"
                 :value="item"
-                :checked="quizStore.selectedRooms.length > 0 && activeCard === roomIndex"
+                :checked="quizStore.selectedRooms.length > 0 && quizStore.selectedRooms.includes(item)"
                 @update:model-value="handleRooms(item)"
                 >{{ item }}</InputRadio
               >
