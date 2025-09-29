@@ -6,6 +6,14 @@
   height: 100%;
 }
 
+html {
+  &.lock {
+    & body {
+      overflow: hidden;
+    }
+  }
+}
+
 .container {
   max-width: $maxWidthContainer + px;
   margin: 0 auto;

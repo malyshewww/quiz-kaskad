@@ -24,7 +24,7 @@ const quizPlanData = [
 
 <template>
   <QuestionBlock>
-    <template #title>Какой тип отделки Вы предпочтете?</template>
+    <template #title>Какое планировочное решение Вы предпочтете?</template>
     <template #text>Возможно выбрать один вариант ответа.</template>
     <template #actions>
       <div class="quiz-plan">

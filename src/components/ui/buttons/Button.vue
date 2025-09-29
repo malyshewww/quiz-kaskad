@@ -29,7 +29,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .btn {
   border-radius: 74px;
-  padding: 20px 40px;
+  padding: 10px 39px;
   min-height: 56px;
   display: flex;
   justify-content: center;

@@ -6,7 +6,7 @@ import { useQuizStore } from "@/store/quiz";
 
 const quizStore = useQuizStore();
 
-const emit = defineEmits(["prev-step", "next-step"]);
+const emit = defineEmits(["prev-step", "next-step", "open-popup"]);
 
 const prevStep = () => {
   emit("prev-step");
@@ -17,7 +17,7 @@ const nextStep = () => {
 };
 
 const openQuizResult = () => {
-  quizStore.isOpenQuizResult = true;
+  emit("open-popup");
 };
 </script>
 

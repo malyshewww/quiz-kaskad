@@ -1,16 +1,37 @@
 <script setup>
 import { vMaska } from "maska/vue";
 
+import { useField } from "vee-validate";
+
+const emit = defineEmits(["update:modelValue"]);
+
+defineProps({
+  modelValue: {
+    type: String,
+    required: false,
+    default: () => "",
+  },
+});
+
 defineOptions({
   inheritAttrs: false,
 });
 
 const attrs = useAttrs();
+
+const { value, errorMessage, meta } = useField(() => attrs.name);
 </script>
 
 <template>
-  <div class="form-field">
-    <input v-maska="attrs.type === 'tel' ? '+7 (###) ###-##-##' : null" class="form-field__input" v-bind="$attrs" />
+  <div :class="['form-field']">
+    <input
+      v-model="value"
+      v-maska="attrs.type === 'tel' ? '+7 (###) ###-##-##' : null"
+      :class="['form-field__input', { 'form-field__input--error': errorMessage }]"
+      v-bind="$attrs"
+      @input="emit('update:modelValue', $event.target.value)"
+    />
+    <div class="form-field__error default-text default-text--xs" v-if="errorMessage">{{ errorMessage }}</div>
   </div>
 </template>
 
@@ -44,6 +65,14 @@ const attrs = useAttrs();
         color: var(--text-default-primary);
       }
     }
+    &--error {
+      border-color: var(--text-default-accent);
+      caret-color: var(--text-default-accent);
+    }
+  }
+  // .form-field__error
+  &__error {
+    color: var(--text-default-accent);
   }
 }
 </style>

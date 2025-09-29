@@ -1,14 +1,10 @@
 <script setup>
 import Button from "@/components/ui/buttons/Button";
-import ButtonBack from "@/components/ui/buttons/ButtonBack";
-import InputBase from "@/components/ui/form/InputBase";
 import HeroImage from "/images/home-logo.svg";
 
-// useHead({
-//   bodyAttrs: {
-//     class: "page--home",
-//   },
-// });
+import { useQuizStore } from "@/store/quiz";
+
+const quizStore = useQuizStore();
 </script>
 
 <template>
@@ -22,7 +18,8 @@ import HeroImage from "/images/home-logo.svg";
         </h1>
         <div class="hero__bottom">
           <div class="hero__sub-title default-text default-text--l">
-            Ответьте всего на 5 вопросов, чтобы мы построили Жилой комплекс максимально удобным и комфортным для Вас!
+            Ответьте всего на {{ quizStore.quizComponentsLength }} вопросов, чтобы мы построили Жилой комплекс максимально удобным и комфортным для
+            Вас!
           </div>
           <Button tag="router-link" link="/quiz">Пройти опрос</Button>
         </div>

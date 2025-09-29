@@ -9,6 +9,8 @@ export const useQuizStore = defineStore("quizStore", () => {
   const selectedPlan = ref([]);
   const selectedPayment = ref([]);
   const selectedAttributes = ref([]);
+  const isSubmittedForm = ref(false);
+  const isSubmittedSuccess = ref(true);
   return {
     isOpenQuizResult,
     quizComponentsLength,
@@ -18,5 +20,7 @@ export const useQuizStore = defineStore("quizStore", () => {
     selectedPlan,
     selectedPayment,
     selectedAttributes,
+    isSubmittedForm,
+    isSubmittedSuccess,
   };
 });

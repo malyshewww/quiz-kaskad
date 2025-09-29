@@ -12,6 +12,10 @@ import QuizResult from "@/components/Quiz/QuizResult.vue";
 
 import { useQuizStore } from "@/store/quiz";
 
+import { useScrollLock } from "@/composables/useScrollLock";
+
+import { useRouter } from "vue-router";
+
 const quizStore = useQuizStore();
 
 const components = [QuizRooms, QuizPlan, QuizType, QuizPayment, QuizAttributes];
@@ -28,6 +32,19 @@ const prevStep = () => {
   if (quizStore.currentStep > 1) {
     quizStore.currentStep--;
   }
+};
+
+const openPopup = () => {
+  alert(
+    `
+    Комнаты - ${quiz.rooms.value},
+    Планировка - ${quiz.plan.value},
+    Тип отделки - ${quiz.type.value},
+    Способ оплаты - ${quiz.payments.value},
+    Атрибуты комфорта - ${quiz.attributes.value}
+    `
+  );
+  quizStore.isOpenQuizResult = true;
 };
 
 const quiz = reactive({
@@ -63,6 +80,24 @@ watchEffect(() => {
   console.log("watch", quiz);
 });
 
+const { lockScroll } = useScrollLock();
+
+watch(
+  () => quizStore.isOpenQuizResult,
+  (val) => {
+    if (val) {
+      lockScroll();
+    }
+  }
+);
+
+const router = useRouter();
+
+router.afterEach(() => {
+  const { unlockScroll } = useScrollLock();
+  unlockScroll();
+});
+
 useHead({
   bodyAttrs: {
     class: "page--quiz",
@@ -80,8 +115,10 @@ useHead({
         </keep-alive>
       </transition>
     </div>
-    <QuizActions @prev-step="prevStep" @next-step="nextStep" />
-    <QuizResult v-if="quizStore.isOpenQuizResult" />
+    <QuizActions @prev-step="prevStep" @next-step="nextStep" @open-popup="openPopup" />
+    <transition name="fade" mode="out-in">
+      <QuizResult v-if="quizStore.isOpenQuizResult" />
+    </transition>
   </div>
 </template>
 

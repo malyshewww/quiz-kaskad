@@ -4,35 +4,106 @@ import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 import InputBase from "@/components/ui/form/InputBase";
 import Button from "@/components/ui/buttons/Button.vue";
+import QuizFormInfo from "@/components/Quiz/QuizFormInfo.vue";
 
-onMounted(() => {
-  Fancybox.bind('[data-fancybox="doc-fancybox"]', { Hash: false });
+import { setYupLocale } from "@/utils/locales";
+
+import { useQuizStore } from "@/store/quiz";
+
+import { useForm } from "vee-validate";
+
+import * as yup from "yup";
+
+const quizStore = useQuizStore();
+
+// Установка локали на русский язык
+setYupLocale("ru");
+
+const schema = yup.object({
+  name: yup.string().required().min(2).label("Имя"),
+  phone: yup.string().required().formatPhone().label("Телефон"),
 });
+
+const { handleSubmit, defineField } = useForm({
+  initialValues: {
+    name: "",
+    phone: "",
+    email: "",
+  },
+  validationSchema: schema,
+});
+
+const [name] = defineField("name");
+const [phone] = defineField("phone");
+const [email] = defineField("email");
+
+function onInvalidSubmit({ values, errors, results }) {
+  if (import.meta.dev) {
+    console.log("values", values);
+    console.log("errors", errors);
+    console.log("results", results);
+    console.log(Object.keys(errors).length);
+  }
+}
+
+const errorSubmittedForm = () => {
+  // Статус формы меняем на false
+  quizStore.isSubmittedSuccess = false;
+};
+
+async function onSuccess(values, { resetForm }) {
+  alert(`Форма отправлена. Поля ${JSON.stringify(values)}`);
+  resetForm();
+  quizStore.isSubmittedForm = true;
+  // try {
+  //   const { response } = await usePostFormData(values);
+  //   if (response.ok) {
+  //     // console.log("webform_id", values.webform_id);
+  //     resetForm();
+  //     setTimeout(() => {
+  //       popupStore.isSubmittedForm = false;
+  //     }, 4000);
+  //   } else {
+  //     errorSubmittedForm();
+  //   }
+  // } catch (error) {
+  //   errorSubmittedForm();
+  //   throw new Error("Ошибка:", error);
+  // } finally {
+  // }
+}
+
+const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
+
+onMounted(() => {});
 </script>
 
 <template>
-  <form class="form">
-    <div class="form__header">
-      <h2>Спасибо, что ответили на&nbsp;все&nbsp;вопросы!</h2>
-      <p class="default-text--l default-text--medium">
-        Если у вас остались другие вопросы или&nbsp;хотите узнать подробнее про&nbsp;будущий ЖК — оставьте заявку ниже и&nbsp;наши специалисты
-        с&nbsp;вами свяжутся.
-      </p>
-    </div>
-    <div class="form__items">
-      <InputBase name="name" type="text" placeholder="Имя *" />
-      <InputBase name="phone" type="tel" placeholder="Телефон *" />
-      <InputBase name="email" type="email" placeholder="E-mail *" />
-      <p class="default-text accent-text">*поля обязательные для заполнения</p>
-    </div>
-    <div class="form__bottom">
-      <Button type="submit">Отправить</Button>
-      <div class="form__text default-text default-text--s default-text--medium">
-        Отправляя форму, Вы соглашаетесь на
-        <a href="/kaskad.docx" download="kaskad" target="_blank">обработку персональных данных.</a>
+  <transition name="fade" mode="out-in">
+    <QuizFormInfo v-if="quizStore.isSubmittedForm" />
+    <form v-else class="form" @submit="onSubmit">
+      <div class="form__header">
+        <h2>Спасибо, что ответили на&nbsp;все&nbsp;вопросы!</h2>
+        <p class="default-text--l default-text--medium">
+          Если у вас остались другие вопросы или&nbsp;хотите узнать подробнее про&nbsp;будущий ЖК — оставьте заявку ниже и&nbsp;наши специалисты
+          с&nbsp;вами свяжутся.
+        </p>
       </div>
-    </div>
-  </form>
+      <div class="form__items">
+        <InputBase name="name" type="text" placeholder="Имя *" :model-value="name" />
+        <InputBase name="phone" type="tel" placeholder="Телефон *" :model-value="phone" />
+        <InputBase name="email" type="email" placeholder="E-mail" :model-value="email" />
+        <p class="default-text accent-text">*поля обязательные для заполнения</p>
+      </div>
+      <div class="form__bottom">
+        <Button type="submit">Отправить</Button>
+        <div class="form__text default-text default-text--s default-text--medium">
+          Отправляя форму, Вы соглашаетесь на
+          <a href="/kaskad.pdf" target="_blank">обработку персональных данных.</a>
+        </div>
+      </div>
+    </form>
+  </transition>
 </template>
 
 <style lang="scss" scoped>
@@ -49,13 +120,6 @@ onMounted(() => {
     display: flex;
     flex-direction: column;
     gap: 12px;
-    & h2 {
-      font-weight: 500;
-      @include media($lg) {
-        font-size: 24px;
-        line-height: 24px;
-      }
-    }
     & p {
       line-height: 19px;
       color: var(--text-default-secondary);
