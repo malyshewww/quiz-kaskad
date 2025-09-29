@@ -92,7 +92,7 @@ watchEffect(() => {
   updateType(quizStore.selectedType);
   updatePayment(quizStore.selectedPayment);
   updateAttributes(quizStore.selectedAttributes);
-  // console.log("watch", quiz);
+  console.log("watch", quiz);
   checkStep();
 });
 

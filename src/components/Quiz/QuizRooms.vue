@@ -35,6 +35,9 @@ const openRoom = (index) => {
   if (activeCard.value === index) {
     activeCard.value = -1;
   } else {
+    if (quizStore.selectedRooms.length > 0) {
+      quizStore.selectedRooms = [];
+    }
     // Открываем новую карточку и закрываем остальные
     activeCard.value = index;
   }
@@ -65,9 +68,10 @@ const handleRooms = (value) => {
               <InputRadio
                 v-for="(item, areaIndex) in room.areas"
                 :key="areaIndex"
-                :id="`${room.key}-${areaIndex + 1}`"
+                :id="`${room.key}-${areaIndex + 1}-${quizStore.selectedRooms}`"
                 name="rooms"
                 :value="item"
+                :checked="quizStore.selectedRooms.length > 0 && activeCard === roomIndex"
                 @update:model-value="handleRooms(item)"
                 >{{ item }}</InputRadio
               >

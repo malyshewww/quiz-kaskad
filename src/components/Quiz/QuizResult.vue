@@ -57,6 +57,11 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
     flex-direction: column;
     gap: 80px;
     clip-path: polygon(0 0, 100% 0, 85% 100%, 0% 100%);
+    @media (min-width: $lg) and (max-height: 850px) {
+      padding-top: 40px;
+      padding-bottom: 40px;
+      gap: 40px;
+    }
     @include media($xl) {
       width: 60%;
       padding: 24px;
@@ -75,6 +80,10 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
   // .quiz-result__logo
   &__logo {
     display: block;
+    width: 274px;
+    @media (min-width: $lg) and (max-height: 850px) {
+      width: 180px;
+    }
     @include media($xl) {
       width: 200px;
       height: auto;
