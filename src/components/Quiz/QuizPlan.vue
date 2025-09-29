@@ -73,7 +73,6 @@ const quizPlanData = [
       }
     }
     @include hover {
-      cursor: pointer;
       border-color: var(--text-default-accent);
     }
     @include media($md) {
@@ -90,6 +89,9 @@ const quizPlanData = [
     opacity: 0;
     border: none;
     z-index: 2;
+    outline: none;
+    border-radius: 0;
+    cursor: default;
     @include hover {
       cursor: pointer;
     }

@@ -1,6 +1,6 @@
 <script setup>
-import Button from "../ui/buttons/Button.vue";
-import ButtonBack from "../ui/buttons/ButtonBack.vue";
+import Button from "@/components/ui/buttons/Button.vue";
+import ButtonBack from "@/components/ui/buttons/ButtonBack.vue";
 
 import { useQuizStore } from "@/store/quiz";
 
@@ -19,13 +19,6 @@ const nextStep = () => {
 const openQuizResult = () => {
   emit("open-popup");
 };
-
-watch(
-  () => quizStore.isDisabledStepButton,
-  (val) => {
-    console.log("val", val);
-  }
-);
 </script>
 
 <template>

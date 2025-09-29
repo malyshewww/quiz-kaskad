@@ -78,7 +78,6 @@ const quizTypeData = [
       }
     }
     @include hover {
-      cursor: pointer;
       border-color: var(--text-default-accent);
     }
   }
@@ -93,7 +92,10 @@ const quizTypeData = [
     height: 100%;
     opacity: 0;
     border: none;
+    outline: none;
+    border-radius: 0;
     z-index: 2;
+    cursor: default;
     @include hover {
       cursor: pointer;
     }
