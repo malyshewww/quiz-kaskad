@@ -16,4 +16,8 @@ export const router = createRouter({
       component: () => import("@/views/Quiz.vue"),
     },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    // always scroll to top
+    return { top: 0 };
+  },
 });

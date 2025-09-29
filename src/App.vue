@@ -9,10 +9,14 @@ const pageClass = computed(() => {
 </script>
 
 <template>
-  <div :class="['page', pageClass]">
+  <div class="app-wrapper">
     <AppHeader />
-    <router-view v-slot="{ Component }">
-      <component :is="Component" />
+    <router-view v-slot="{ Component, route }">
+      <transition name="fade" mode="out-in">
+        <div :class="['page', pageClass]" :key="route.path">
+          <component :is="Component" />
+        </div>
+      </transition>
     </router-view>
   </div>
 </template>

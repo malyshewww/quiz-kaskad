@@ -6,7 +6,12 @@
   height: 100%;
 }
 
+.app-wrapper {
+  height: 100%;
+}
+
 html {
+  scrollbar-gutter: stable;
   &.lock {
     & body {
       overflow: hidden;

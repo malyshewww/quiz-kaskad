@@ -1,20 +1,19 @@
 <script setup>
 import HeaderLogo from "/images/header-logo.svg";
 import HeaderPartLogo from "/images/header-part-logo.svg";
-import { useAppStore } from "@/store/app";
-
 const route = useRoute();
 
 const currentLogo = computed(() => {
   return route.name == "home" ? HeaderPartLogo : HeaderLogo;
 });
 
-const appStore = useAppStore();
-console.log("is", appStore.isLoading);
+const headerClass = computed(() => {
+  return route.name === "home" ? "header--transparent" : "";
+});
 </script>
 
 <template>
-  <header class="header">
+  <header :class="['header', headerClass]">
     <div class="header__body container">
       <router-link to="/" class="header__logo">
         <img :src="currentLogo" alt="логотип" />
@@ -30,12 +29,14 @@ console.log("is", appStore.isLoading);
   top: 0;
   left: 0;
   width: 100%;
-  height: var(--header-height);
+  min-height: var(--header-height);
   background-color: var(--white);
   margin: 0;
   z-index: 3;
-  .page--home & {
-    height: var(--header-home-height);
+  display: flex;
+  align-items: center;
+  &.header--transparent {
+    // height: var(--header-home-height);
     background-color: transparent;
   }
   // .header__body
@@ -45,6 +46,7 @@ console.log("is", appStore.isLoading);
     justify-content: space-between;
     align-items: center;
     gap: 20px;
+    width: 100%;
   }
   // .header__logo
   &__logo {
