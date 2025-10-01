@@ -1,6 +1,4 @@
 <script setup>
-import { useHead } from "@vueuse/head";
-
 import QuizHeader from "@/components/Quiz/QuizHeader.vue";
 import QuizPlan from "@/components/Quiz/QuizPlan.vue";
 import QuizType from "@/components/Quiz/QuizType.vue";
@@ -13,8 +11,6 @@ import QuizResult from "@/components/Quiz/QuizResult.vue";
 import { useQuizStore } from "@/store/quiz";
 
 import { useScrollLock } from "@/composables/useScrollLock";
-
-import { useRouter } from "vue-router";
 
 const quizStore = useQuizStore();
 
@@ -48,12 +44,17 @@ const openPopup = () => {
 };
 
 const quiz = reactive({
+  roomTitle: { value: "" },
   rooms: { value: "" },
   plan: { value: "" },
   type: { value: "" },
   payments: { value: [] },
   attributes: { value: [] },
 });
+
+const updateRoomTitle = (title) => {
+  quiz.roomTitle.value = title;
+};
 
 const updateRooms = (room) => {
   quiz.rooms.value = room;
@@ -87,13 +88,14 @@ const checkStep = () => {
 };
 
 watchEffect(() => {
+  updateRoomTitle(quizStore.selectedRoomTitle);
   updateRooms(quizStore.selectedRooms);
   updatePlan(quizStore.selectedPlan);
   updateType(quizStore.selectedType);
   updatePayment(quizStore.selectedPayment);
   updateAttributes(quizStore.selectedAttributes);
-  console.log("watch", quiz);
   checkStep();
+  console.log("watch", quiz);
 });
 
 watch(

@@ -37,6 +37,7 @@ const openRoom = (index) => {
   } else {
     if (quizStore.selectedRooms.length > 0) {
       quizStore.selectedRooms = [];
+      quizStore.selectedRoomTitle = "";
     }
     // Открываем новую карточку и закрываем остальные
     activeCard.value = index;
@@ -44,8 +45,9 @@ const openRoom = (index) => {
 };
 
 // Обработка радиокнопок площадей в комнатах
-const handleRooms = (value) => {
-  quizStore.selectedRooms = value;
+const handleRooms = (room, area) => {
+  quizStore.selectedRoomTitle = room.title;
+  quizStore.selectedRooms = area;
 };
 </script>
 
@@ -72,7 +74,7 @@ const handleRooms = (value) => {
                 name="rooms"
                 :value="item"
                 :checked="quizStore.selectedRooms.length > 0 && quizStore.selectedRooms.includes(item)"
-                @update:model-value="handleRooms(item)"
+                @update:model-value="handleRooms(room, item)"
                 >{{ item }}</InputRadio
               >
             </div>

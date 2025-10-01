@@ -21,7 +21,7 @@ const schema = yup.object({
   phone: yup.string().required().formatPhone().label("Телефон"),
 });
 
-const { handleSubmit, defineField } = useForm({
+const { handleSubmit, defineField, errors } = useForm({
   initialValues: {
     name: "",
     phone: "",
@@ -91,7 +91,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
         <p class="default-text accent-text">*поля обязательные для заполнения</p>
       </div>
       <div class="form__bottom">
-        <Button type="submit">Отправить</Button>
+        <Button type="submit" :disabled="Object.keys(errors).length > 0">Отправить</Button>
         <div class="form__text default-text default-text--s default-text--medium">
           Отправляя форму, Вы соглашаетесь на
           <a href="/kaskad.pdf" target="_blank">обработку персональных данных.</a>
