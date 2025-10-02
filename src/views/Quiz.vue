@@ -28,7 +28,35 @@ const prevStep = () => {
   }
 };
 
-const openPopup = () => {
+const quiz = reactive({
+  roomTitle: { value: "" },
+  rooms: { value: "" },
+  plan: { value: "" },
+  type: { value: "" },
+  payments: { value: [] },
+  attributes: { value: [] },
+});
+
+const formData = reactive({
+  rooms_count: quizStore.selectedRoomTitle,
+  studio: quizStore.selectedRooms,
+  layout_solution: quizStore.selectedPlan,
+  finishing_type: quizStore.selectedType,
+  buy_option: quizStore.selectedPayment,
+  comfort_attributes: quizStore.selectedAttributes,
+  webform_id: "quiz",
+})
+
+const updateFormData = () => {
+  formData.rooms_count = quizStore.selectedRoomTitle;
+  formData.studio = quizStore.selectedRooms;
+  formData.layout_solution = quizStore.selectedPlan;
+  formData.finishing_type = quizStore.selectedType;
+  formData.buy_option = quizStore.selectedPayment;
+  formData.comfort_attributes = quizStore.selectedAttributes;
+}
+
+const openPopup = async () => {
   alert(
     `
     Комнаты - ${quiz.rooms.value},
@@ -39,16 +67,24 @@ const openPopup = () => {
     `
   );
   quizStore.isOpenQuizResult = true;
+  // try {
+  //   const { response } = await usePostFormData(formData);
+  //   if (response.ok) {
+  //     quizStore.isOpenQuizResult = true;
+  //   } else {
+  //     errorSubmittedForm();
+  //   }
+  // } catch (error) {
+  //   errorSubmittedForm();
+  //   throw new Error("Ошибка:", error);
+  // }
 };
 
-const quiz = reactive({
-  roomTitle: { value: "" },
-  rooms: { value: "" },
-  plan: { value: "" },
-  type: { value: "" },
-  payments: { value: [] },
-  attributes: { value: [] },
-});
+
+// const errorSubmittedForm = () => {
+//   quizStore.isOpenQuizResult = true;
+//   quizStore.isSubmittedSuccess = false;
+// };
 
 const updateRoomTitle = (title) => {
   quiz.roomTitle.value = title;
@@ -93,7 +129,10 @@ watchEffect(() => {
   updatePayment(quizStore.selectedPayment);
   updateAttributes(quizStore.selectedAttributes);
   checkStep();
+  updateFormData();
   console.log("watch", quiz);
+  console.log('formData', formData);
+  
 });
 
 watch(
@@ -114,6 +153,8 @@ watch(
     }
   }
 );
+
+
 
 const router = useRouter();
 
@@ -140,7 +181,7 @@ useHead({
     </div>
     <QuizActions @prev-step="prevStep" @next-step="nextStep" @open-popup="openPopup" />
     <transition name="fade" mode="out-in">
-      <QuizResult />
+      <QuizResult v-if="quizStore.isOpenQuizResult" />
     </transition>
   </div>
 </template>

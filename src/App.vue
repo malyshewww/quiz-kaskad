@@ -1,5 +1,4 @@
 <script setup>
-import "@/assets/scss/main.scss";
 import AppHeader from "@/components/AppHeader";
 
 const route = useRoute();

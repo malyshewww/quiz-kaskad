@@ -24,6 +24,7 @@ const { handleSubmit, defineField, errors } = useForm({
     name: "",
     phone: "",
     email: "",
+    webform_id: "contact_form",
   },
   validationSchema: schema,
 });
@@ -50,22 +51,21 @@ async function onSuccess(values, { resetForm }) {
   alert(`Форма отправлена. Поля ${JSON.stringify(values)}`);
   resetForm();
   quizStore.isSubmittedForm = true;
-  // try {
-  //   const { response } = await usePostFormData(values);
-  //   if (response.ok) {
-  //     // console.log("webform_id", values.webform_id);
-  //     resetForm();
-  //     setTimeout(() => {
-  //       popupStore.isSubmittedForm = false;
-  //     }, 4000);
-  //   } else {
-  //     errorSubmittedForm();
-  //   }
-  // } catch (error) {
-  //   errorSubmittedForm();
-  //   throw new Error("Ошибка:", error);
-  // } finally {
-  // }
+  try {
+    const { response } = await usePostFormData(values);
+    if (response.ok) {
+      console.log("ok");
+      resetForm();
+      // setTimeout(() => {
+      //   popupStore.isSubmittedForm = false;
+      // }, 4000);
+    } else {
+      errorSubmittedForm();
+    }
+  } catch (error) {
+    errorSubmittedForm();
+    throw new Error("Ошибка:", error);
+  }
 }
 
 const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
