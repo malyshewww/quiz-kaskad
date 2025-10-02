@@ -3,8 +3,6 @@ import InputBase from "@/components/ui/form/InputBase";
 import Button from "@/components/ui/buttons/Button.vue";
 import QuizFormInfo from "@/components/Quiz/QuizFormInfo.vue";
 
-import { setYupLocale } from "@/utils/locales";
-
 import { useQuizStore } from "@/store/quiz";
 
 import { useForm } from "vee-validate";

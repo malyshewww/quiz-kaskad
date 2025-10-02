@@ -12,11 +12,13 @@ const pageClass = computed(() => {
 <template>
   <AppHeader />
   <router-view v-slot="{ Component, route }">
-    <transition name="fade" mode="out-in">
-      <div :class="['page', pageClass]" :key="route.path">
-        <component :is="Component" />
-      </div>
-    </transition>
+    <template v-if="Component">
+      <transition name="fade" mode="out-in">
+        <div :class="['page', pageClass]" :key="route.path">
+          <component :is="Component" />
+        </div>
+      </transition>
+    </template>
   </router-view>
 </template>
 

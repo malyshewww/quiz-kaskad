@@ -10,10 +10,6 @@ import QuizResult from "@/components/Quiz/QuizResult.vue";
 
 import { useQuizStore } from "@/store/quiz";
 
-import { useScrollLock } from "@/composables/useScrollLock";
-
-import { scrollPageToTop } from "@/utils/scrollPageToTop";
-
 const quizStore = useQuizStore();
 
 const components = [QuizRooms, QuizPlan, QuizType, QuizPayment, QuizAttributes];
@@ -108,7 +104,7 @@ watch(
   }
 );
 
-const { lockScroll } = useScrollLock();
+const { lockScroll, unlockScroll } = useScrollLock();
 
 watch(
   () => quizStore.isOpenQuizResult,
@@ -122,7 +118,6 @@ watch(
 const router = useRouter();
 
 router.afterEach(() => {
-  const { unlockScroll } = useScrollLock();
   unlockScroll();
 });
 
