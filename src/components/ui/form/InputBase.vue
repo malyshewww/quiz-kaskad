@@ -69,6 +69,21 @@ const { value, errorMessage, meta } = useField(() => attrs.name);
       border-color: var(--text-default-accent);
       caret-color: var(--text-default-accent);
     }
+    /* Убирает стандартные стили автозаполнения */
+    &:-webkit-autofill {
+      -webkit-box-shadow: 0 0 0px 1000px var(--white) inset;
+      box-shadow: 0 0 0px 1000px var(--white) inset;
+      -webkit-text-fill-color: var(--text-primary);
+    }
+    &:-webkit-autofill:focus {
+      -webkit-box-shadow: 0 0 0px 1000px var(--white) inset;
+      box-shadow: 0 0 0px 1000px var(--white) inset;
+      font-size: 16px !important;
+    }
+    &::-webkit-autofill::first-line {
+      font-size: 16px !important;
+      font-family: inherit !important;
+    }
   }
   // .form-field__error
   &__error {
