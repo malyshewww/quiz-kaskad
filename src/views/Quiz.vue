@@ -67,6 +67,7 @@ const openPopup = async () => {
     `
   );
   quizStore.isOpenQuizResult = true;
+  targetMetrica();
   // try {
   //   const { response } = await usePostFormData(formData);
   //   if (response.ok) {
@@ -79,6 +80,12 @@ const openPopup = async () => {
   //   throw new Error("Ошибка:", error);
   // }
 };
+
+const targetMetrica = () => {
+  if (typeof ym != "undefined") {
+    ym(104359681,'reachGoal','opros') 
+  }
+}
 
 
 // const errorSubmittedForm = () => {
