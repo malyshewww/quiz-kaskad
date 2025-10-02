@@ -36,7 +36,6 @@ const headerClass = computed(() => {
   display: flex;
   align-items: center;
   &.header--transparent {
-    // height: var(--header-home-height);
     background-color: transparent;
   }
   // .header__body

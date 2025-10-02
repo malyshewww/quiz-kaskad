@@ -12,6 +12,8 @@ import { useQuizStore } from "@/store/quiz";
 
 import { useScrollLock } from "@/composables/useScrollLock";
 
+import { scrollPageToTop } from "@/utils/scrollPageToTop";
+
 const quizStore = useQuizStore();
 
 const components = [QuizRooms, QuizPlan, QuizType, QuizPayment, QuizAttributes];
@@ -102,6 +104,7 @@ watch(
   () => quizStore.currentStep,
   () => {
     checkStep();
+    scrollPageToTop();
   }
 );
 
