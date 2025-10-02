@@ -6,6 +6,15 @@ const route = useRoute();
 const pageClass = computed(() => {
   return route.name === "home" ? "page--home" : "";
 });
+
+
+useHead({
+  noscript: [
+    {
+      innerHTML: '<div><img src="https://mc.yandex.ru/watch/104359681" style="position:absolute; left:-9999px;" alt="" /></div>',
+    },
+  ],
+})
 </script>
 
 <template>
