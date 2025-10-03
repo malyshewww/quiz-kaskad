@@ -81,6 +81,7 @@ const quizStore = useQuizStore();
     width: 100%;
     @include media($md) {
       min-height: 100%;
+      height: auto;
     }
   }
   // .hero__body
