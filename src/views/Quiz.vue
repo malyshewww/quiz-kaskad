@@ -35,26 +35,19 @@ const quiz = reactive({
   type: { value: "" },
   payments: { value: [] },
   attributes: { value: [] },
+  webform_id: "quiz",
 });
 
-const formData = reactive({
-  rooms_count: quizStore.selectedRoomTitle,
-  studio: quizStore.selectedRooms,
-  layout_solution: quizStore.selectedPlan,
-  finishing_type: quizStore.selectedType,
-  buy_option: quizStore.selectedPayment,
-  comfort_attributes: quizStore.selectedAttributes,
-  webform_id: "quiz",
-})
-
-const updateFormData = () => {
-  formData.rooms_count = quizStore.selectedRoomTitle;
-  formData.studio = quizStore.selectedRooms;
-  formData.layout_solution = quizStore.selectedPlan;
-  formData.finishing_type = quizStore.selectedType;
-  formData.buy_option = quizStore.selectedPayment;
-  formData.comfort_attributes = quizStore.selectedAttributes;
-}
+const formData = computed(() => {
+  return {
+    rooms_count: quiz.roomTitle.value,
+    studio: quiz.rooms.value,
+    layout_solution: quiz.plan.value,
+    finishing_type: quiz.type.value,
+    buy_option: quiz.payments.value,
+    comfort_attributes: quiz.attributes.value,
+  };
+});
 
 const openPopup = async () => {
   alert(
@@ -81,17 +74,16 @@ const openPopup = async () => {
   // }
 };
 
-const targetMetrica = () => {
-  if (typeof ym != "undefined") {
-    ym(104359681,'reachGoal','opros') 
-  }
-}
-
-
 // const errorSubmittedForm = () => {
 //   quizStore.isOpenQuizResult = true;
 //   quizStore.isSubmittedSuccess = false;
 // };
+
+const targetMetrica = () => {
+  if (typeof ym != "undefined") {
+    ym(104359681, "reachGoal", "opros");
+  }
+};
 
 const updateRoomTitle = (title) => {
   quiz.roomTitle.value = title;
@@ -136,10 +128,7 @@ watchEffect(() => {
   updatePayment(quizStore.selectedPayment);
   updateAttributes(quizStore.selectedAttributes);
   checkStep();
-  updateFormData();
-  console.log("watch", quiz);
-  console.log('formData', formData);
-  
+  console.log("formData", formData.value);
 });
 
 watch(
@@ -160,8 +149,6 @@ watch(
     }
   }
 );
-
-
 
 const router = useRouter();
 
