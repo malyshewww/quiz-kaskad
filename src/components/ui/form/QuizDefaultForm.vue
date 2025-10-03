@@ -23,7 +23,7 @@ const { handleSubmit, defineField, errors } = useForm({
   initialValues: {
     name: "",
     phone: "",
-    email: "",
+    mail: "",
     webform_id: "contact_form",
   },
   validationSchema: schema,
@@ -31,7 +31,7 @@ const { handleSubmit, defineField, errors } = useForm({
 
 const [name] = defineField("name");
 const [phone] = defineField("phone");
-const [email] = defineField("email");
+const [mail] = defineField("mail");
 
 function onInvalidSubmit({ values, errors, results }) {
   if (import.meta.dev) {
@@ -85,7 +85,7 @@ const onSubmit = handleSubmit(onSuccess, onInvalidSubmit);
       <div class="form__items">
         <InputBase name="name" type="text" placeholder="Имя *" :model-value="name" />
         <InputBase name="phone" type="tel" placeholder="Телефон *" :model-value="phone" />
-        <InputBase name="email" type="email" placeholder="E-mail" :model-value="email" />
+        <InputBase name="email" type="email" placeholder="E-mail" :model-value="mail" />
         <p class="default-text accent-text">*поля обязательные для заполнения</p>
       </div>
       <div class="form__bottom">

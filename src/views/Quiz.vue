@@ -42,7 +42,7 @@ const formData = computed(() => {
   return {
     rooms_count: quiz.roomTitle.value,
     studio: quiz.rooms.value,
-    layout_solution: quiz.plan.value,
+    plan_options: quiz.plan.value,
     finishing_type: quiz.type.value,
     buy_option: quiz.payments.value,
     comfort_attributes: quiz.attributes.value,
