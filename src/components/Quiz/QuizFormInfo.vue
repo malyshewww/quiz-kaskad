@@ -3,6 +3,13 @@ import { useQuizStore } from "@/store/quiz";
 import Button from "@/components/ui/buttons/Button.vue";
 
 const quizStore = useQuizStore();
+
+watch(
+  () => quizStore.isSubmittedSuccess,
+  (val) => {
+    quizStore.isSubmittedSuccess = val;
+  }
+);
 </script>
 
 <template>

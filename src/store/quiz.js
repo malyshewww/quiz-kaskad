@@ -12,7 +12,7 @@ export const useQuizStore = defineStore("quizStore", () => {
   const selectedAttributes = ref([]);
   const isDisabledStepButton = ref(true);
   const isSubmittedForm = ref(false);
-  const isSubmittedSuccess = ref(true);
+  const isSubmittedSuccess = ref(false);
   return {
     isOpenQuizResult,
     quizComponentsLength,

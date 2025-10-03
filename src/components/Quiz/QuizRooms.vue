@@ -47,7 +47,7 @@ const openRoom = (index) => {
 // Обработка радиокнопок площадей в комнатах
 const handleRooms = (room, area) => {
   quizStore.selectedRoomTitle = room.title;
-  quizStore.selectedRooms = area;
+  quizStore.selectedRooms = `${room.title} ${area}`;
 };
 </script>
 

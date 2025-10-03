@@ -48,17 +48,13 @@ const errorSubmittedForm = () => {
 };
 
 async function onSuccess(values, { resetForm }) {
-  alert(`Форма отправлена. Поля ${JSON.stringify(values)}`);
-  resetForm();
-  quizStore.isSubmittedForm = true;
+  console.log(`Форма отправлена. Поля ${JSON.stringify(values)}`);
   try {
     const { response } = await usePostFormData(values);
     if (response.ok) {
-      console.log("ok");
       resetForm();
-      // setTimeout(() => {
-      //   popupStore.isSubmittedForm = false;
-      // }, 4000);
+      quizStore.isSubmittedSuccess = true;
+      quizStore.isSubmittedForm = true;
     } else {
       errorSubmittedForm();
     }

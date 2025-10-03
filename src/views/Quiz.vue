@@ -35,13 +35,13 @@ const quiz = reactive({
   type: { value: "" },
   payments: { value: [] },
   attributes: { value: [] },
-  webform_id: "quiz",
 });
 
 const formData = computed(() => {
   return {
-    rooms_count: quiz.roomTitle.value,
-    studio: quiz.rooms.value,
+    // rooms_count: quiz.roomTitle.value,
+    // studio: quiz.rooms.value,
+    rooms: quiz.rooms.value,
     plan_options: quiz.plan.value,
     finishing_type: quiz.type.value,
     buy_option: quiz.payments.value,
@@ -50,34 +50,28 @@ const formData = computed(() => {
 });
 
 const openPopup = async () => {
-  alert(
-    `
-    Комнаты - ${quiz.rooms.value},
-    Планировка - ${quiz.plan.value},
-    Тип отделки - ${quiz.type.value},
-    Способ оплаты - ${quiz.payments.value},
-    Атрибуты комфорта - ${quiz.attributes.value}
-    `
-  );
-  quizStore.isOpenQuizResult = true;
-  targetMetrica();
-  // try {
-  //   const { response } = await usePostFormData(formData);
-  //   if (response.ok) {
-  //     quizStore.isOpenQuizResult = true;
-  //   } else {
-  //     errorSubmittedForm();
-  //   }
-  // } catch (error) {
-  //   errorSubmittedForm();
-  //   throw new Error("Ошибка:", error);
-  // }
+  try {
+    const { response } = await usePostFormData({ ...formData.value, webform_id: "quiz" });
+    console.log("response", response);
+    if (response.ok) {
+      console.log("ok");
+      quizStore.isOpenQuizResult = true;
+      targetMetrica();
+    } else {
+      console.log("not ok");
+      errorSubmittedForm();
+    }
+  } catch (error) {
+    console.log("error not ok");
+    errorSubmittedForm();
+    throw new Error("Ошибка:", error);
+  }
 };
 
-// const errorSubmittedForm = () => {
-//   quizStore.isOpenQuizResult = true;
-//   quizStore.isSubmittedSuccess = false;
-// };
+const errorSubmittedForm = () => {
+  quizStore.isSubmittedSuccess = false;
+  quizStore.isOpenQuizResult = true;
+};
 
 const targetMetrica = () => {
   if (typeof ym != "undefined") {
