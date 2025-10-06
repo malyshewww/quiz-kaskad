@@ -19,8 +19,8 @@ const quizStore = useQuizStore();
         <img :src="QuizResultLogo" alt="каскад" />
       </a>
       <transition name="fade" mode="out-in">
-        <QuizFormInfo v-if="quizStore.isSubmittedForm" />
-        <QuizDefaultForm v-else />
+        <QuizDefaultForm v-if="quizStore.isSubmittedQuizSuccess" />
+        <QuizFormInfo v-else />
       </transition>
     </div>
   </div>

@@ -10,17 +10,24 @@ watch(
     quizStore.isSubmittedSuccess = val;
   }
 );
+
+const router = useRouter();
+
+const backToHome = () => {
+  quizStore.isOpenQuizResult = false;
+  router.push("/");
+};
 </script>
 
 <template>
-  <div v-if="quizStore.isSubmittedSuccess" class="form-info">
+  <div v-if="quizStore.isSubmittedQuizSuccess || quizStore.isSubmittedSuccess" class="form-info">
     <h2 class="form-info__title">Форма успешно отправлена</h2>
     <div class="form-info__sub-title default-text--l default-text--medium">Наши специалисты с&nbsp;вами свяжутся в ближайшее время</div>
   </div>
   <div v-else class="form-info">
     <h2 class="form-info__title">Ошибка отправки</h2>
     <div class="form-info__sub-title default-text--l default-text--medium">Что-то пошло не так, попробуйте отправить форму еще раз</div>
-    <Button type-class="secondary" tag="router-link" link="/">Вернуться на главную</Button>
+    <Button type-class="secondary" tag="router-link" link="/" @click="backToHome">Вернуться на главную</Button>
   </div>
 </template>
 

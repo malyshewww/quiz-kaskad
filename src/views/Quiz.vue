@@ -50,35 +50,37 @@ const formData = computed(() => {
 const openPopup = async () => {
   try {
     const { response } = await usePostFormData({ ...formData.value, webform_id: "quiz" });
-    console.log("response", response);
+    // console.log("response", response);
     if (response.ok) {
-      console.log("ok");
       quizStore.isOpenQuizResult = true;
+      quizStore.isSubmittedQuizSuccess = true;
       targetMetrica();
     } else {
-      console.log("not ok");
       errorSubmittedForm();
     }
   } catch (error) {
-    console.log("error not ok");
     errorSubmittedForm();
     throw new Error("Ошибка:", error);
   }
 };
 
 const errorSubmittedForm = () => {
-  quizStore.isSubmittedSuccess = false;
+  quizStore.isSubmittedQuizSuccess = false;
   quizStore.isOpenQuizResult = true;
+};
+
+const resetQuizData = () => {
+  quizStore.selectedRooms = [];
+  quizStore.selectedPlan = [];
+  quizStore.selectedType = [];
+  quizStore.selectedPayment = [];
+  quizStore.selectedAttributes = [];
 };
 
 const targetMetrica = () => {
   if (typeof ym != "undefined") {
     ym(104359681, "reachGoal", "opros");
   }
-};
-
-const updateRoomTitle = (title) => {
-  quiz.roomTitle.value = title;
 };
 
 const updateRooms = (room) => {
@@ -145,6 +147,8 @@ const router = useRouter();
 
 router.afterEach(() => {
   unlockScroll();
+  resetQuizData();
+  quizStore.currentStep = 1;
 });
 
 useHead({
