@@ -39,9 +39,7 @@ const quiz = reactive({
 
 const formData = computed(() => {
   return {
-    // rooms_count: quiz.roomTitle.value,
-    // studio: quiz.rooms.value,
-    rooms: quiz.rooms.value,
+    rooms_type: quiz.rooms.value,
     plan_options: quiz.plan.value,
     finishing_type: quiz.type.value,
     buy_option: quiz.payments.value,
@@ -115,7 +113,6 @@ const checkStep = () => {
 };
 
 watchEffect(() => {
-  updateRoomTitle(quizStore.selectedRoomTitle);
   updateRooms(quizStore.selectedRooms);
   updatePlan(quizStore.selectedPlan);
   updateType(quizStore.selectedType);

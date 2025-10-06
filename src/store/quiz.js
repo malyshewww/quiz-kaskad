@@ -4,7 +4,6 @@ export const useQuizStore = defineStore("quizStore", () => {
   const isOpenQuizResult = ref(false);
   const quizComponentsLength = ref(5);
   const currentStep = ref(1);
-  const selectedRoomTitle = ref("");
   const selectedRooms = ref([]);
   const selectedPlan = ref([]);
   const selectedType = ref([]);
@@ -17,7 +16,6 @@ export const useQuizStore = defineStore("quizStore", () => {
     isOpenQuizResult,
     quizComponentsLength,
     currentStep,
-    selectedRoomTitle,
     selectedRooms,
     selectedType,
     selectedPlan,

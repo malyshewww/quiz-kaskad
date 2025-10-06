@@ -2,6 +2,11 @@
 import QuizResultLogo from "/images/quiz-logo.svg";
 import QuizResultBg from "/images/quiz/quiz-bg.png";
 import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
+import QuizFormInfo from "@/components/Quiz/QuizFormInfo.vue";
+
+import { useQuizStore } from "@/store/quiz";
+
+const quizStore = useQuizStore();
 </script>
 
 <template>
@@ -13,7 +18,10 @@ import QuizDefaultForm from "@/components/ui/form/QuizDefaultForm.vue";
       <a href="https://www.kaskad-nn.ru/ " target="_blank" class="quiz-result__logo">
         <img :src="QuizResultLogo" alt="каскад" />
       </a>
-      <QuizDefaultForm />
+      <transition name="fade" mode="out-in">
+        <QuizFormInfo v-if="quizStore.isSubmittedForm" />
+        <QuizDefaultForm v-else />
+      </transition>
     </div>
   </div>
 </template>

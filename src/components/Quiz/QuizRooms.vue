@@ -37,7 +37,6 @@ const openRoom = (index) => {
   } else {
     if (quizStore.selectedRooms.length > 0) {
       quizStore.selectedRooms = [];
-      quizStore.selectedRoomTitle = "";
     }
     // Открываем новую карточку и закрываем остальные
     activeCard.value = index;
@@ -46,7 +45,6 @@ const openRoom = (index) => {
 
 // Обработка радиокнопок площадей в комнатах
 const handleRooms = (room, area) => {
-  quizStore.selectedRoomTitle = room.title;
   quizStore.selectedRooms = `${room.title} ${area}`;
 };
 </script>
